@@ -3,9 +3,9 @@ import { Container, Paper, Typography, TextField, Button, Box, Rating, Alert } f
 import EmailIcon from '@mui/icons-material/Email';
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = 'service_lro2j82'; 
-const TEMPLATE_ID = 'template_rwfxvl7'; 
-const USER_ID = 'j7EqqEd_SLx2UEUWE'; 
+const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID || 'service_lro2j82'; 
+const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID || 'template_rwfxvl7'; 
+const USER_ID = process.env.REACT_APP_EMAILJS_PUBLIC_KEY || 'j7EqqEd_SLx2UEUWE'; 
 
 const Feedback = () => {
   const [form, setForm] = useState({ type: 'Feedback', name: '', email: '', rating: 0, message: '' });

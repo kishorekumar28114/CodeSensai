@@ -17,8 +17,9 @@ router.post('/register', async (req, res) => {
         if (existingUser) {
             return res.status(400).json({ error: 'User already exists.' });
         }
-        // Store password as plain text (not recommended for production!)
-        const user = new User({ name, email, phone, profession, password });
+        // Securely hash password using bcrypt
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = new User({ name, email, phone, profession, password: hashedPassword });
         await user.save();
         return res.status(201).json({ message: 'Registration successful', user: { name, email, phone, profession } });
     } catch (err) {
@@ -38,8 +39,9 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        // Compare passwords
-        if (user.password !== password) {
+        // Securely compare passwords
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(401).json({ error: 'Invalid credentials' });
         }
 

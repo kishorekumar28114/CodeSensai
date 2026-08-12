@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Button, TextField, Typography, Container, Paper } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 const Login = () => {
     // Clear any previous user info on page load
@@ -16,7 +17,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('https://codesensei-backend.onrender.com/api/users/login', {
+            const response = await fetch(`${API_BASE_URL}/api/users/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,7 +31,7 @@ const Login = () => {
                 localStorage.setItem('isLoggedIn', 'true');
                 // Save token if provided
                 try {
-                    const profileRes = await fetch(`https://codesensei-backend.onrender.com/api/users/me?email=${encodeURIComponent(email)}`);
+                    const profileRes = await fetch(`${API_BASE_URL}/api/users/me?email=${encodeURIComponent(email)}`);
                     const profile = await profileRes.json();
                     if (profile && profile.name) {
                         localStorage.setItem('username', profile.name);

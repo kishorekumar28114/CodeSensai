@@ -3,6 +3,7 @@ import { Box, Button, TextField, Typography, Container, Paper, Grid, Card, CardC
 import CodeIcon from '@mui/icons-material/Code';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import atomOneLight from 'react-syntax-highlighter/dist/styles/atom-one-light';
+import { API_BASE_URL } from '../config';
 
 const ComplexityAnalyzer = () => {
     const [code, setCode] = useState('');
@@ -16,7 +17,7 @@ const ComplexityAnalyzer = () => {
         setAnalysis(null);
         setError('');
         try {
-            const response = await fetch('https://codesensei-backend.onrender.com/api/analysis', {
+            const response = await fetch(`${API_BASE_URL}/api/analysis`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

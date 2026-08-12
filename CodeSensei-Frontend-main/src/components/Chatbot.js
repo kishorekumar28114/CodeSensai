@@ -4,6 +4,7 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import atomOneLight from 'react-syntax-highlighter/dist/styles/atom-one-light';
+import { API_BASE_URL } from '../config';
 
 const Chatbot = () => {
     const [messages, setMessages] = useState([]);
@@ -22,7 +23,7 @@ const Chatbot = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('https://codesensei-backend.onrender.com/api/chat', {
+            const response = await fetch(`${API_BASE_URL}/api/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
